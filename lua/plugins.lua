@@ -67,6 +67,25 @@ function M.setup()
       ft = {"fugitive"}
     }
 
+
+    use {"tpope/vim-commentary"}
+
+    -- Treesitter
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      opt = true,
+      event = "BufReadPre",
+      run = ":TSUpdate",
+      config = function()
+        require("config.treesitter").setup()
+      end,
+      requires = {
+        { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPre" },
+        { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPre" },
+      }
+    }
+
+
     use {
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
