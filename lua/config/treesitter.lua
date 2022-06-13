@@ -28,13 +28,14 @@ function M.setup()
       enable = true,
     },
 
+    -- For incremental selection based on syntax
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = '<leader>w',
-        node_incremental = '<leader>w',
-        scope_incremental = '<leader>q',
-        node_decremental = '<leader>s',
+        init_selection = '(',
+        node_incremental = '(',
+        scope_incremental = '<leader>(',
+        node_decremental = ')',
       },
     },
 
