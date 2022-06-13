@@ -91,6 +91,20 @@ function M.setup()
       },
     }
 
+    -- Telescope
+    use {
+      'nvim-telescope/telescope.nvim',
+      config = function()
+        require('lvim.core.telescope').setup()
+      end,
+    }
+
+    use {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      requires = { 'nvim-telescope/telescope.nvim' },
+      run = 'make',
+    }
+
     -- Colorscheme
     use {
       'RRethy/nvim-base16',
@@ -100,7 +114,7 @@ function M.setup()
       end,
     }
 
-    -- Status line
+    -- Status line at the bottom
     use {
       'nvim-lualine/lualine.nvim',
       config = function()
