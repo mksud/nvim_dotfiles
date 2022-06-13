@@ -95,7 +95,7 @@ function M.setup()
     use {
       'nvim-telescope/telescope.nvim',
       config = function()
-        require('lvim.core.telescope').setup()
+        require('telescope').setup()
       end,
     }
 
