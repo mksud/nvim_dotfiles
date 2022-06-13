@@ -36,6 +36,7 @@ function M.setup()
   local function plugins(use)
     use { 'wbthomason/packer.nvim' }
 
+    -- Surround
     use {
       'tpope/vim-surround',
       keys = { 'c', 'd', 'y' },
@@ -47,6 +48,7 @@ function M.setup()
       --
     }
 
+    -- Git helper
     use {
       'tpope/vim-fugitive',
       cmd = {
@@ -68,6 +70,7 @@ function M.setup()
       ft = { 'fugitive' },
     }
 
+    -- Comment helper
     use {
       'tpope/vim-commentary',
       keys = 'gc',
@@ -97,6 +100,7 @@ function M.setup()
       end,
     }
 
+    -- Status line
     use {
       'nvim-lualine/lualine.nvim',
       config = function()
