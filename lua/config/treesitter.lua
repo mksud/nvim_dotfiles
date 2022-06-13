@@ -1,11 +1,24 @@
 local M = {}
 
 function M.setup()
-  require("nvim-treesitter.configs").setup {
+  require('nvim-treesitter.configs').setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-    ensure_installed = { "c", "lua", "cpp", "c_sharp", "css", "html", "java",
-                        "json", "make", "python", "javascript", "typescript",
-                        "vim", "yaml" },
+    ensure_installed = {
+      'c',
+      'lua',
+      'cpp',
+      'c_sharp',
+      'css',
+      'html',
+      'java',
+      'json',
+      'make',
+      'python',
+      'javascript',
+      'typescript',
+      'vim',
+      'yaml',
+    },
 
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -18,10 +31,10 @@ function M.setup()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "<leader>w",
-        node_incremental = "<leader>w",
-        scope_incremental = "<leader>q",
-        node_decremental = "<leader>s",
+        init_selection = '<leader>w',
+        node_incremental = '<leader>w',
+        scope_incremental = '<leader>q',
+        node_decremental = '<leader>s',
       },
     },
 
@@ -35,20 +48,20 @@ function M.setup()
 
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+          ['ac'] = '@class.outer',
+          ['ic'] = '@class.inner',
         },
       },
 
       swap = {
         enable = true,
         swap_next = {
-          ["<leader>cx"] = "@parameter.inner",
+          ['<leader>cx'] = '@parameter.inner',
         },
         swap_previous = {
-          ["<leader>cX"] = "@parameter.inner",
+          ['<leader>cX'] = '@parameter.inner',
         },
       },
 
@@ -56,20 +69,20 @@ function M.setup()
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]]"] = "@class.outer",
+          [']m'] = '@function.outer',
+          [']]'] = '@class.outer',
         },
         goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
+          [']M'] = '@function.outer',
+          [']['] = '@class.outer',
         },
         goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
+          ['[m'] = '@function.outer',
+          ['[['] = '@class.outer',
         },
         goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
+          ['[M'] = '@function.outer',
+          ['[]'] = '@class.outer',
         },
       },
 
@@ -89,7 +102,6 @@ function M.setup()
       enable = true,
       -- enable_autocmd = false,
     },
-
   }
 end
 
