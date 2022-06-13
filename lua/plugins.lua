@@ -97,6 +97,7 @@ function M.setup()
       config = function()
         require('telescope').setup()
       end,
+      requires = { 'nvim-lua/plenary.nvim' },
     }
 
     use {
