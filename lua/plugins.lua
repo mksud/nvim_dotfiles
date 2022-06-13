@@ -53,6 +53,7 @@ function M.setup()
         "G",
         "Git",
         "Gdiffsplit",
+        "Gvdiffsplit",
         "Gread",
         "Gwrite",
         "Ggrep",
@@ -68,7 +69,11 @@ function M.setup()
     }
 
 
-    use {"tpope/vim-commentary"}
+    use {
+      "tpope/vim-commentary",
+      keys = "gc"
+    }
+
 
     -- Treesitter
     use {
@@ -85,20 +90,32 @@ function M.setup()
       }
     }
 
-
+-- Colorscheme
+    use {
+      "RRethy/nvim-base16",
+      config = function()
+        vim.opt.background = 'light'
+        vim.cmd "colorscheme base16-one-light"
+      end
+    }
     use {
       'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+      config = function()
+        require('lualine').setup()
+      end,
+      options = {
+        icons_enabled = false,
+        theme = 'base16'
+      },
+      -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
   
-
-
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
       require("packer").sync()
     end
   end
-
+ 
   packer_init()
 
   local packer = require "packer"
