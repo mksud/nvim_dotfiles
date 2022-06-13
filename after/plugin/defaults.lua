@@ -17,6 +17,7 @@ opt.signcolumn = 'number' -- Always show sign column
 opt.showmode = false -- Do not need to show the mode. We use the statusline instead.
 opt.scrolloff = 5 -- Lines of context
 opt.smartindent = true --Smart indent
+opt.breakindent = true --Wrapped lines indent
 opt.shortmess:append 'c' -- disable insert completion menu
 
 -- Treesitter based folding
