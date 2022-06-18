@@ -26,3 +26,8 @@ cmd [[
   set foldmethod=expr
   set foldexpr=nvim_treesitter#foldexpr()
 ]]
+
+--Remap space as leader key
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+g.mapleader = ' '
+g.maplocalleader = ' '
