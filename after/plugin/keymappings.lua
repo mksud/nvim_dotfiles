@@ -15,3 +15,16 @@ keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_opts)
 -- Better indent
 keymap("v", "<", "<gv", default_opts)
 keymap("v", ">", ">gv", default_opts)
+
+
+-- plugin mappings
+-- telescope
+
+vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers)
+vim.keymap.set('n', '<leader>sf', function()
+  require('telescope.builtin').find_files { previewer = false }
+end)
+vim.keymap.set('n', '<leader>sb', require('telescope.builtin').current_buffer_fuzzy_find)
+vim.keymap.set('n', '<leader>sd', require('telescope.builtin').grep_string)
+vim.keymap.set('n', '<leader>sp', require('telescope.builtin').live_grep)
+vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
