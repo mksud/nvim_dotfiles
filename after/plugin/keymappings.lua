@@ -25,6 +25,5 @@ vim.keymap.set('n', '<leader>sf', function()
   require('telescope.builtin').find_files { previewer = false }
 end)
 vim.keymap.set('n', '<leader>sb', require('telescope.builtin').current_buffer_fuzzy_find)
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').grep_string)
-vim.keymap.set('n', '<leader>sp', require('telescope.builtin').live_grep)
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
+vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string)
+vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep)
