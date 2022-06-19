@@ -36,6 +36,44 @@ function M.setup()
   local function plugins(use)
     use { 'wbthomason/packer.nvim' }
 
+    -- LSP
+    use {
+      {
+        'williamboman/nvim-lsp-installer',
+      },
+      {
+        'neovim/nvim-lspconfig',
+        after = 'nvim-lsp-installer',
+        config = function()
+          require('config.lsp').setup()
+        end,
+      },
+    }
+
+    -- Completion
+    use {
+      'hrsh7th/nvim-cmp',
+      event = 'InsertEnter',
+      opt = true,
+      config = function()
+        require('config.cmp').setup()
+      end,
+      requires = {
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-nvim-lsp',
+        'saadparwaiz1/cmp_luasnip',
+        'L3MON4D3/LuaSnip',
+        'rafamadriz/friendly-snippets',
+      },
+    }
+
+    use {
+      'L3MON4D3/LuaSnip',
+      event = 'InsertEnter',
+      opt = true,
+    }
+
     -- Surround
     use {
       'tpope/vim-surround',
