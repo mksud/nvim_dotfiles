@@ -53,8 +53,6 @@ function M.setup()
     -- Completion
     use {
       'hrsh7th/nvim-cmp',
-      event = 'InsertEnter',
-      opt = true,
       config = function()
         require('config.cmp').setup()
       end,
@@ -66,12 +64,6 @@ function M.setup()
         'L3MON4D3/LuaSnip',
         'rafamadriz/friendly-snippets',
       },
-    }
-
-    use {
-      'L3MON4D3/LuaSnip',
-      event = 'InsertEnter',
-      opt = true,
     }
 
     -- Surround
