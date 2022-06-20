@@ -30,7 +30,7 @@ function M.setup()
 
   -- Enable the following language servers
   local servers = { 'html', 'pyright', 'tsserver' }
-  require('nvim-lsp-installer').setup { servers }
+  require('nvim-lsp-installer').setup { ensure_installed = servers }
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
       on_attach = on_attach,

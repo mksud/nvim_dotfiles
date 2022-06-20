@@ -137,14 +137,22 @@ function M.setup()
     }
 
     -- Colorscheme
+    -- use {
+    --   'RRethy/nvim-base16',
+    --   config = function()
+    --     vim.opt.background = 'light'
+    --     vim.cmd 'colorscheme base16-one-light'
+    --   end,
+    -- }
     use {
-      'RRethy/nvim-base16',
+      'sainnhe/edge',
       config = function()
         vim.opt.background = 'light'
-        vim.cmd 'colorscheme base16-one-light'
+        vim.cmd 'colorscheme edge'
       end,
     }
 
+    -- use 'NLKNguyen/papercolor-theme'
     -- Status line at the bottom
     use {
       'nvim-lualine/lualine.nvim',
