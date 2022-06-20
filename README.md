@@ -2,4 +2,4 @@
 Neovim configuration
 
 Prerequisites:
-	`make` command for treesitter
+	`make` command for treesitter and telescope native
