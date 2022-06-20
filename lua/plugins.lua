@@ -144,25 +144,41 @@ function M.setup()
     --     vim.cmd 'colorscheme base16-one-light'
     --   end,
     -- }
+    -- use {
+    --   'sainnhe/edge',
+    --   config = function()
+    --     vim.opt.background = 'light'
+    --     vim.cmd 'colorscheme edge'
+    --   end,
+    -- }
+    -- use 'NLKNguyen/papercolor-theme'
+    -- use{
+    --   "catppuccin/nvim",
+    --   as = "catppuccin",
+    --   config = function()
+    --     vim.opt.background = 'light'
+    --     vim.cmd 'colorscheme catppuccin'
+    --   end,
+    -- }
+
     use {
-      'sainnhe/edge',
+      'Mofiqul/vscode.nvim',
       config = function()
         vim.opt.background = 'light'
-        vim.cmd 'colorscheme edge'
+        vim.cmd 'colorscheme vscode'
       end,
     }
 
-    -- use 'NLKNguyen/papercolor-theme'
     -- Status line at the bottom
     use {
       'nvim-lualine/lualine.nvim',
       config = function()
         require('lualine').setup()
       end,
-      options = {
-        -- icons_enabled = false,
-        theme = 'base16',
-      },
+      -- options = {
+      --   icons_enabled = false,
+      --   theme = 'base16',
+      -- },
       -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
