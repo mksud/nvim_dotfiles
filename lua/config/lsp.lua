@@ -29,7 +29,7 @@ function M.setup()
   capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
   -- Enable the following language servers
-  local servers = { 'html', 'pyright', 'tsserver' }
+  local servers = { 'html', 'pyright', 'tsserver', 'eslint' }
   require('nvim-lsp-installer').setup { ensure_installed = servers }
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
