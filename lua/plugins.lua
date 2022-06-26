@@ -103,7 +103,6 @@ function M.setup()
     -- Comment helper
     use {
       'tpope/vim-commentary',
-      keys = 'gc',
     }
 
     -- Treesitter
