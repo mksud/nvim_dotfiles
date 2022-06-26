@@ -121,6 +121,13 @@ function M.setup()
       },
     }
 
+    -- Auto detect indentation
+    use {
+      'tpope/vim-sleuth',
+      opt = true,
+      event = 'BufReadPre',
+    }
+
     -- Telescope
     use {
       'nvim-telescope/telescope.nvim',
