@@ -142,36 +142,21 @@ function M.setup()
       run = 'make',
     }
 
-    -- Colorscheme
-    -- use {
-    --   'RRethy/nvim-base16',
-    --   config = function()
-    --     vim.opt.background = 'light'
-    --     vim.cmd 'colorscheme base16-one-light'
-    --   end,
-    -- }
-    -- use {
-    --   'sainnhe/edge',
-    --   config = function()
-    --     vim.opt.background = 'light'
-    --     vim.cmd 'colorscheme edge'
-    --   end,
-    -- }
+    -- other Colorschemes
+    -- use 'Mofiqul/vscode.nvim'
     -- use 'NLKNguyen/papercolor-theme'
-    -- use{
-    --   "catppuccin/nvim",
-    --   as = "catppuccin",
-    --   config = function()
-    --     vim.opt.background = 'light'
-    --     vim.cmd 'colorscheme catppuccin'
-    --   end,
-    -- }
+    -- use 'catppuccin/nvim'
+    -- use 'RRethy/nvim-base16'
+    -- use 'sainnhe/edge'
+    -- use 'folke/tokyonight.nvim'
+    -- use 'EdenEast/nightfox.nvim'
+    -- Colorscheme
 
     use {
-      'Mofiqul/vscode.nvim',
+      'projekt0n/github-nvim-theme',
       config = function()
         vim.opt.background = 'light'
-        vim.cmd 'colorscheme vscode'
+        vim.cmd 'colorscheme github_light'
       end,
     }
 
@@ -179,12 +164,13 @@ function M.setup()
     use {
       'nvim-lualine/lualine.nvim',
       config = function()
-        require('lualine').setup()
+        require('lualine').setup() {
+          options = {
+            icons_enabled = false,
+            -- theme = 'base16',
+          },
+        }
       end,
-      -- options = {
-      --   icons_enabled = false,
-      --   theme = 'base16',
-      -- },
       -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
