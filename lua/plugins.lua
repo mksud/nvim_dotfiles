@@ -43,7 +43,7 @@ function M.setup()
       },
       {
         'neovim/nvim-lspconfig',
-        after = 'nvim-lsp-installer',
+        requires = 'nvim-lsp-installer',
         config = function()
           require('config.lsp').setup()
         end,
