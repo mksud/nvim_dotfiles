@@ -71,32 +71,15 @@ function M.setup()
       'tpope/vim-surround',
       keys = { 'c', 'd', 'y' },
       -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
-      --   -- setup = function()
-      --       --  vim.o.timeoutlen = 500
-      --         -- end
-      --         },
-      --
+      -- setup = function()
+      --  vim.o.timeoutlen = 500
+      -- end
     }
 
     -- Git helper
     use {
       'tpope/vim-fugitive',
-      cmd = {
-        'G',
-        'Git',
-        'Gdiffsplit',
-        'Gvdiffsplit',
-        'Gread',
-        'Gwrite',
-        'Ggrep',
-        'GMove',
-        'GDelete',
-        'GBrowse',
-        'GRemove',
-        'GRename',
-        'Glgrep',
-        'Gedit',
-      },
+      cmd = { 'G', 'Git', 'Gdiffsplit', 'Gvdiffsplit', 'Gread', 'Gwrite', 'Ggrep', 'GMove', 'GDelete', 'GBrowse', 'GRemove', 'GRename', 'Glgrep', 'Gedit' },
       ft = { 'fugitive' },
     }
 

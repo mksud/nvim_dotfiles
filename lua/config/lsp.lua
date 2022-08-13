@@ -23,7 +23,7 @@ end
 function M.setup()
   -- LSP settings
   local lspconfig = require 'lspconfig'
-  local lspconfig_util  = require 'lspconfig.util'
+  local lspconfig_util = require 'lspconfig.util'
 
   -- nvim-cmp supports additional completion capabilities
   local capabilities = vim.lsp.protocol.make_client_capabilities()
