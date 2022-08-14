@@ -36,7 +36,7 @@ function M.setup()
   local function plugins(use)
     use { 'wbthomason/packer.nvim' }
 
-    -- LSP
+    -- LSP for code intelligence
     use {
       {
         'williamboman/nvim-lsp-installer',
@@ -50,7 +50,7 @@ function M.setup()
       },
     }
 
-    -- Completion
+    -- Code Completion
     use {
       'hrsh7th/nvim-cmp',
       config = function()
@@ -66,7 +66,7 @@ function M.setup()
       },
     }
 
-    -- Surround
+    -- Surround shortcuts
     use {
       'tpope/vim-surround',
       keys = { 'c', 'd', 'y' },
@@ -88,7 +88,7 @@ function M.setup()
       'tpope/vim-commentary',
     }
 
-    -- Treesitter
+    -- Treesitter for syntax highlighting, navigating
     use {
       'nvim-treesitter/nvim-treesitter',
       opt = true,
@@ -103,14 +103,14 @@ function M.setup()
       },
     }
 
-    -- Auto detect indentation
+    -- Auto detect indentation of an opened file
     use {
       'tpope/vim-sleuth',
       opt = true,
       event = 'BufReadPre',
     }
 
-    -- Telescope
+    -- Telescope for fuzzy searching
     use {
       'nvim-telescope/telescope.nvim',
       config = function()
@@ -133,8 +133,8 @@ function M.setup()
     -- use 'sainnhe/edge'
     -- use 'folke/tokyonight.nvim'
     -- use 'EdenEast/nightfox.nvim'
-    -- Colorscheme
 
+    -- Colorscheme
     use {
       'projekt0n/github-nvim-theme',
       config = function()

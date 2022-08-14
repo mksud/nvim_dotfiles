@@ -30,17 +30,17 @@ function M.setup()
   capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
   -- Enable the following language servers
-  -- Override some stuff that is not working in the default lspconfig settings
+  -- Override the root dir detection and other settings
   local servers = {
     ['html'] = {},
     ['pyright'] = {},
     ['omnisharp'] = {},
-    ['eslint'] = {
+    ['tsserver'] = {
       root_dir = function(fname)
         return lspconfig_util.root_pattern('jsconfig.json', 'tsconfig.json')(fname) or lspconfig_util.root_pattern('package.json', '.git')(fname)
       end,
     },
-    ['tsserver'] = {
+    ['eslint'] = {
       root_dir = function(fname)
         return lspconfig_util.root_pattern('.eslintrc', '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc.json')(fname)
           or lspconfig_util.root_pattern('package.json', '.git')(fname)
