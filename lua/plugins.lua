@@ -1,53 +1,37 @@
 local M = {}
 
 function M.setup()
-  -- Indicate first time installation
-  local packer_bootstrap = false
-
-  -- packer.nvim configuration
-  local conf = {
-    display = {
-      open_fn = function()
-        return require('packer.util').float { border = 'rounded' }
-      end,
-    },
-  }
+  -- Install packer
+  local is_bootstrap = false
 
   -- Check if packer.nvim is installed
   -- Run PackerCompile if there are changes in this file
   local function packer_init()
-    local fn = vim.fn
-    local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-      packer_bootstrap = fn.system {
-        'git',
-        'clone',
-        '--depth',
-        '1',
-        'https://github.com/wbthomason/packer.nvim',
-        install_path,
-      }
+    local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+      is_bootstrap = true
+      vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
       vim.cmd [[packadd packer.nvim]]
     end
     vim.cmd 'autocmd BufWritePost plugins.lua source <afile> | PackerCompile'
   end
-
   -- Plugins
   local function plugins(use)
     use { 'wbthomason/packer.nvim' }
 
-    -- LSP for code intelligence
-    use {
-      {
-        'williamboman/nvim-lsp-installer',
+    use { -- LSP Configuration & Plugins
+      'neovim/nvim-lspconfig',
+      requires = {
+        -- Automatically install LSPs to stdpath for neovim
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
+
+        -- Useful status updates for LSP
+        'j-hui/fidget.nvim',
       },
-      {
-        'neovim/nvim-lspconfig',
-        requires = 'nvim-lsp-installer',
-        config = function()
-          require('config.lsp').setup()
-        end,
-      },
+      config = function()
+        require('config.lsp').setup()
+      end,
     }
 
     -- Code Completion
@@ -111,19 +95,11 @@ function M.setup()
     }
 
     -- Telescope for fuzzy searching
-    use {
-      'nvim-telescope/telescope.nvim',
-      config = function()
-        require('telescope').setup()
-      end,
-      requires = { 'nvim-lua/plenary.nvim' },
-    }
+    -- Fuzzy Finder (files, lsp, etc)
+    use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
 
-    use {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      requires = { 'nvim-telescope/telescope.nvim' },
-      run = 'make',
-    }
+    -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
     -- other Colorschemes
     -- use 'Mofiqul/vscode.nvim'
@@ -157,7 +133,7 @@ function M.setup()
       -- requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
-    if packer_bootstrap then
+    if is_bootstrap then
       print 'Restart Neovim required after installation!'
       require('packer').sync()
     end
@@ -166,7 +142,6 @@ function M.setup()
   packer_init()
 
   local packer = require 'packer'
-  packer.init(conf)
   packer.startup(plugins)
 end
 
