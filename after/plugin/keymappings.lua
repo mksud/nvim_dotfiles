@@ -4,8 +4,6 @@ local expr_opts = { noremap = true, expr = true, silent = true }
 
 --Remap space as leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 
 -- Visual line wraps
 keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", expr_opts)

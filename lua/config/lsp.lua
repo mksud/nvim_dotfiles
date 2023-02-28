@@ -90,7 +90,6 @@ function M.setup()
 
   -- Turn on status information
   require('fidget').setup()
-
 end
 
 return M
