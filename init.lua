@@ -115,6 +115,15 @@ require('lazy').setup({
     end,
   },
 
+  { -- Annotation support
+    'danymat/neogen',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = true,
+    -- opts = { snippet_engine = 'luasnip' },
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = "*"
+  },
+
   --Load custom plugins from `lua/custom/plugins/*.lua`
   --For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   --{ import = 'custom.plugins' },

@@ -19,10 +19,8 @@ keymap('v', '>', '>gv', default_opts)
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>sf', function()
   require('telescope.builtin').find_files { previewer = false }
-  end,
-  { desc = '[S]earch [F]iles' }
-)
-  
+end, { desc = '[S]earch [F]iles' })
+
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
