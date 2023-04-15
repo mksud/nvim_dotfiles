@@ -108,8 +108,8 @@ require('lazy').setup({
     },
     config = function()
       pcall(require('config.treesitter').setup)
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
+    build = ':TSUpdate',
   },
 
   { -- Annotation support
