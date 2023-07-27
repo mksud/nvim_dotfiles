@@ -120,7 +120,7 @@ require('lazy').setup({
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
   },
-  { 'echasnovski/mini.pairs', version = false },
+  { 'echasnovski/mini.pairs', opts = {}, version = false },
 
   --Load custom plugins from `lua/custom/plugins/*.lua`
   --For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
