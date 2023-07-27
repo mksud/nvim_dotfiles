@@ -36,7 +36,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim', opts = {}, tag = 'legacy' },
     },
     config = function()
       require('config.lsp').setup()
@@ -120,6 +120,7 @@ require('lazy').setup({
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
   },
+  { 'echasnovski/mini.pairs', version = false },
 
   --Load custom plugins from `lua/custom/plugins/*.lua`
   --For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
