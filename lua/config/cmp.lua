@@ -22,7 +22,7 @@ function M.setup()
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<CR>'] = cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
+        select = false, -- only explicitly selected with tab
       },
       ['<Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
