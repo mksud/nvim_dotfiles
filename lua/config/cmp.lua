@@ -4,9 +4,7 @@ function M.setup()
   -- luasnip setup
   local luasnip = require 'luasnip'
   luasnip.filetype_extend('javascript', { 'html' })
-  require('luasnip.loaders.from_vscode').lazy_load {
-    include = { 'javascript', 'html' },
-  }
+  require('luasnip.loaders.from_vscode').lazy_load()
 
   -- nvim-cmp setup
   local cmp = require 'cmp'
