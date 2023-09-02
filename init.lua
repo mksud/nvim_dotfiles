@@ -82,7 +82,11 @@ require('lazy').setup({
     version = '*',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('telescope').setup()
+      require('telescope').setup {
+        defaults = {
+          path_display = { 'smart' },
+        },
+      }
       require('telescope').load_extension 'fzf'
     end,
   },
