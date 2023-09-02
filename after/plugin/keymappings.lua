@@ -18,7 +18,7 @@ keymap('v', '>', '>gv', default_opts)
 
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>sf', function()
-  require('telescope.builtin').find_files { previewer = false }
+  require('telescope.builtin').find_files { previewer = false, path_display = { 'truncate' } }
 end, { desc = '[S]earch [F]iles' })
 
 vim.keymap.set('n', '<leader>/', function()
