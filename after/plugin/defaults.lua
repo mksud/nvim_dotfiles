@@ -1,5 +1,3 @@
-local api = vim.api
-local g = vim.g
 local opt = vim.opt
 local cmd = vim.cmd
 
@@ -19,6 +17,11 @@ opt.scrolloff = 5 -- Lines of context
 opt.smartindent = true --Smart indent
 opt.breakindent = true --Wrapped lines indent
 opt.shortmess:append 'c' -- disable insert completion menu
+
+if vim.fn.executable 'rg' == 1 then
+  opt.grepprg = 'rg --vimgrep --smart-case'
+  opt.grepformat:prepend '%f:%l:%c:%m'
+end
 
 -- Treesitter based folding
 cmd [[
