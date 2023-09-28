@@ -73,6 +73,14 @@ require('lazy').setup({
         icons_enabled = false,
         -- theme = 'base16',
       },
+      sections = {
+        lualine_c = {
+          {
+            'filename',
+            path = 4,
+          }
+        }
+      }
     },
   },
 
