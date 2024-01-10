@@ -26,6 +26,7 @@ require('lazy').setup({
   'tpope/vim-surround', -- nice keymaps to surround
   'tpope/vim-commentary', -- comment helper
   'tpope/vim-sleuth', -- autodetect tab setting and indentatio
+  'github/copilot.vim', -- copilot
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -78,9 +79,9 @@ require('lazy').setup({
           {
             'filename',
             path = 4,
-          }
-        }
-      }
+          },
+        },
+      },
     },
   },
 
