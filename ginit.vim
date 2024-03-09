@@ -1,7 +1,7 @@
 " Set Editor Font
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
-    GuiFont! Hack\ NF:h10
+    GuiFont! Hack\ Nerd\ Font\ Mono:h10
 endif
 
 " Disable GUI Tabline
