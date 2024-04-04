@@ -27,6 +27,7 @@ require('lazy').setup({
   'tpope/vim-commentary', -- comment helper
   'tpope/vim-sleuth', -- autodetect tab setting and indentatio
   'github/copilot.vim', -- copilot
+  'mksud/vim-log-syntax', --log file highlighting
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
