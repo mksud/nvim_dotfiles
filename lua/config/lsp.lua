@@ -61,7 +61,7 @@ function M.setup()
     ['pyright'] = {},
     ['omnisharp'] = {},
     ['clangd'] = {},
-    ['tsserver'] = {
+    ['ts_ls'] = {
       root_dir = function(fname)
         return lspconfig_util.root_pattern('jsconfig.json', 'tsconfig.json')(fname) or lspconfig_util.root_pattern('package.json', '.git')(fname)
       end,
