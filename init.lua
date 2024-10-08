@@ -125,15 +125,6 @@ require('lazy').setup({
     end,
     build = ':TSUpdate',
   },
-
-  { -- Annotation support
-    'danymat/neogen',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    -- config = true,
-    opts = { snippet_engine = 'luasnip' },
-    -- Uncomment next line if you want to follow only stable versions
-    -- version = "*"
-  },
   { 'echasnovski/mini.pairs', opts = {}, version = false },
 
   --Load custom plugins from `lua/custom/plugins/*.lua`
