@@ -22,11 +22,7 @@ vim.keymap.set('n', '<leader>sf', function()
 end, { desc = '[S]earch [F]iles' })
 
 vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
+  require("telescope.builtin").current_buffer_fuzzy_find{ previewer = false }
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
