@@ -21,6 +21,7 @@ opt.shortmess:append 'c' -- disable insert completion menu
 if vim.fn.executable 'rg' == 1 then
   opt.grepprg = 'rg --vimgrep --smart-case'
   opt.grepformat:prepend '%f:%l:%c:%m'
+  opt.grepformat:append '%f'
 end
 
 -- Treesitter based folding
