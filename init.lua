@@ -24,7 +24,7 @@ require('lazy').setup({
 
   'tpope/vim-fugitive', -- Git helper
   'tpope/vim-surround', -- nice keymaps to surround
-  'tpope/vim-commentary', -- comment helper
+  -- 'tpope/vim-commentary', -- comment helper
   'tpope/vim-sleuth', -- autodetect tab setting and indentatio
   'github/copilot.vim', -- copilot
   'mksud/vim-log-syntax', --log file highlighting
