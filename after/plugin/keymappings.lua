@@ -22,7 +22,7 @@ vim.keymap.set('n', '<leader>sf', function()
 end, { desc = '[S]earch [F]iles' })
 
 vim.keymap.set('n', '<leader>/', function()
-  require("telescope.builtin").current_buffer_fuzzy_find{ previewer = false }
+  require('telescope.builtin').current_buffer_fuzzy_find { previewer = false }
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
