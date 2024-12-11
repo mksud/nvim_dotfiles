@@ -29,6 +29,9 @@ require('lazy').setup({
   'github/copilot.vim', -- copilot
   'mksud/vim-log-syntax', --log file highlighting
 
+  { 'echasnovski/mini.statusline', version = false, opts = {} },
+  { 'echasnovski/mini.pairs', version = false, opts = {} },
+
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -57,32 +60,6 @@ require('lazy').setup({
       'saadparwaiz1/cmp_luasnip',
       'L3MON4D3/LuaSnip',
       'rafamadriz/friendly-snippets',
-    },
-  },
-
-  { -- colorscheme
-    'projekt0n/github-nvim-theme',
-    config = function()
-      vim.opt.background = 'light'
-      vim.cmd 'colorscheme github_light'
-    end,
-  },
-
-  { -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    opts = {
-      options = {
-        icons_enabled = false,
-        -- theme = 'base16',
-      },
-      sections = {
-        lualine_c = {
-          {
-            'filename',
-            path = 4,
-          },
-        },
-      },
     },
   },
 
@@ -125,7 +102,6 @@ require('lazy').setup({
     end,
     build = ':TSUpdate',
   },
-  { 'echasnovski/mini.pairs', opts = {}, version = false },
 
   --Load custom plugins from `lua/custom/plugins/*.lua`
   --For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
