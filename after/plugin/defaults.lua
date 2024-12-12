@@ -3,10 +3,8 @@ local cmd = vim.cmd
 
 opt.shiftwidth = 4
 opt.tabstop = 4
-opt.termguicolors = true -- Enable colors in terminal
 opt.background = 'light'
 opt.number = true --Make line numbers default
-opt.mouse = 'a' --Enable mouse mode
 opt.ignorecase = true --Case insensitive searching unless /C or capital in search
 opt.wildignorecase = true
 opt.smartcase = true -- Smart case
