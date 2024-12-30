@@ -15,6 +15,7 @@ opt.scrolloff = 5 -- Lines of context
 opt.smartindent = true --Smart indent
 opt.breakindent = true --Wrapped lines indent
 opt.shortmess:append 'c' -- disable insert completion menu
+opt.termguicolors = true -- Enable colors in terminal
 
 if vim.fn.executable 'rg' == 1 then
   opt.grepprg = 'rg --vimgrep --smart-case'

@@ -33,9 +33,6 @@ vim.keymap.set('n', '<leader>sq', require('telescope.builtin').quickfix, { desc 
 
 -- Utility maps
 
--- visual star for multiline strings
-vim.cmd [[xnoremap <leader>* y/\V<c-r>=substitute(escape(@",'/\'),'\n','\\n','g')<cr><cr>]]
-
 -- Retab alternatives
 vim.cmd [[command! -range=% -nargs=0 Tab2Space execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')']]
 vim.cmd [[command! -range=% -nargs=0 Space2Tab execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')']]
