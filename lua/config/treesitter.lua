@@ -18,6 +18,7 @@ function M.setup()
       'typescript',
       'vim',
       'yaml',
+      'rust',
     },
 
     -- Install languages synchronously (only applied to `ensure_installed`)
