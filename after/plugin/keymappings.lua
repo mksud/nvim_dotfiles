@@ -31,6 +31,10 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>sq', require('telescope.builtin').quickfix, { desc = '[S]earch [Q]uickfix' })
 
+vim.keymap.set({'n', 'v'}, '<leader>cc', function()
+  require('CopilotChat').toggle()
+end, { desc = '[C]opilot [C]hat' })
+
 -- Utility maps
 
 -- Retab alternatives
