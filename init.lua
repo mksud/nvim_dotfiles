@@ -26,8 +26,17 @@ require('lazy').setup({
   'tpope/vim-surround', -- nice keymaps to surround
   -- 'tpope/vim-commentary', -- comment helper
   'tpope/vim-sleuth', -- autodetect tab setting and indentatio
-  'github/copilot.vim', -- copilot
+  -- 'github/copilot.vim', -- copilot
   'mksud/vim-log-syntax', --log file highlighting
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'github/copilot.vim' },
+      { 'nvim-lua/plenary.nvim', branch = 'master' }, 
+    },
+    build = vim.fn.has 'unix' == 1 and 'make tiktoken' or nil, -- Only on Linux
+    opts = {},
+  },
 
   { 'echasnovski/mini.statusline', version = false, opts = {} },
   { 'echasnovski/mini.pairs', version = false, opts = {} },
@@ -67,7 +76,9 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     version = '*',
     dependencies = {
-      'nvim-lua/plenary.nvim', -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+      { 'nvim-lua/plenary.nvim', branch = 'master' }, 
+      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+      
       -- Only load if `make` is available. Make sure you have the system
       -- requirements installed.
       {
@@ -86,7 +97,7 @@ require('lazy').setup({
           path_display = { 'smart' },
         },
       }
-      pcall( require('telescope').load_extension,'fzf' )
+      pcall(require('telescope').load_extension, 'fzf')
     end,
   },
 
