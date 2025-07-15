@@ -29,13 +29,13 @@ require('lazy').setup({
   -- 'github/copilot.vim', -- copilot
   'mksud/vim-log-syntax', --log file highlighting
   {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    dependencies = {
-      { 'github/copilot.vim' },
-      { 'nvim-lua/plenary.nvim', branch = 'master' }, 
-    },
-    build = vim.fn.has 'unix' == 1 and 'make tiktoken' or nil, -- Only on Linux
+    'olimorris/codecompanion.nvim',
     opts = {},
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'github/copilot.vim',
+      'nvim-treesitter/nvim-treesitter',
+    },
   },
 
   { 'echasnovski/mini.statusline', version = false, opts = {} },
@@ -76,9 +76,9 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     version = '*',
     dependencies = {
-      { 'nvim-lua/plenary.nvim', branch = 'master' }, 
+      { 'nvim-lua/plenary.nvim', branch = 'master' },
       -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-      
+
       -- Only load if `make` is available. Make sure you have the system
       -- requirements installed.
       {
