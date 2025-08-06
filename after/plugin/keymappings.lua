@@ -32,8 +32,8 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.keymap.set('n', '<leader>sq', require('telescope.builtin').quickfix, { desc = '[S]earch [Q]uickfix' })
 
 vim.keymap.set({'n', 'v'}, '<leader>cc', function()
-  require('CopilotChat').toggle()
-end, { desc = '[C]opilot [C]hat' })
+  require('codecompanion').toggle()
+end, { desc = '[C]ode [C]ompanion Chat' })
 
 -- Utility maps
 
