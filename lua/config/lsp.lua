@@ -35,8 +35,7 @@ end
 
 function M.setup()
   -- LSP settings
-  local lspconfig = require 'lspconfig'
-  local lspconfig_util = require 'lspconfig.util'
+  local lspconfig_util = vim.lsp.config.util
 
   -- Enable the following language servers
   -- Override the root dir detection and other settings
@@ -71,7 +70,10 @@ function M.setup()
       on_attach = on_attach,
       capabilities = capabilities,
     }, opts or {})
-    lspconfig[name].setup(server_config)
+    -- Define / override the config
+    vim.lsp.config[name] = server_config
+    -- Enable so it activates for its filetypes
+    vim.lsp.enable(name)
   end
 
   -- Turn on status information
