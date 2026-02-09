@@ -30,6 +30,7 @@ require('lazy').setup({
   'mksud/vim-log-syntax', --log file highlighting
   {
     'olimorris/codecompanion.nvim',
+    version = "^18.0.0",
     opts = {},
     dependencies = {
       'nvim-lua/plenary.nvim',
