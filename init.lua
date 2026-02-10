@@ -31,7 +31,19 @@ require('lazy').setup({
   {
     'olimorris/codecompanion.nvim',
     version = "^18.0.0",
-    opts = {},
+    opts = {
+      adapters = {
+        acp = {
+          codex = function()
+            return require("codecompanion.adapters").extend("codex", {
+              defaults = {
+                auth_method = "chatgpt",
+              },
+            })
+          end,
+        },
+      },
+    },
     dependencies = {
       'nvim-lua/plenary.nvim',
       'github/copilot.vim',

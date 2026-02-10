@@ -4,6 +4,7 @@ Neovim configuration
 Prerequisites:
 - `make` command for treesitter and telescope native
 - `ripgrep` and `fd` for telescope search
+- `codex` and `codex-acp`
 
 Plugin hosts:
 - `python -m pip install --user pynvim`
