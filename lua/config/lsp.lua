@@ -61,9 +61,8 @@ function M.setup()
   require('mason').setup()
   require('mason-lspconfig').setup { ensure_installed = vim.tbl_keys(servers) }
 
-  -- nvim-cmp supports additional completion capabilities
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+  -- blink.cmp supports additional completion capabilities
+  local capabilities = require('blink.cmp').get_lsp_capabilities()
 
   for name, opts in pairs(servers) do
     local server_config = vim.tbl_extend('force', {

@@ -54,6 +54,17 @@ require('lazy').setup({
   { 'echasnovski/mini.statusline', version = false, opts = {} },
   { 'echasnovski/mini.pairs', version = false, opts = {} },
 
+  { -- Code completion
+    'saghen/blink.cmp',
+    version = '1.*',
+    config = function()
+      require('config.blink').setup()
+    end,
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+    },
+  },
+
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -68,20 +79,6 @@ require('lazy').setup({
     config = function()
       require('config.lsp').setup()
     end,
-  },
-
-  { -- Code completion
-    'hrsh7th/nvim-cmp',
-    config = function()
-      require('config.cmp').setup()
-    end,
-    dependencies = {
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lsp',
-      'saadparwaiz1/cmp_luasnip',
-      'L3MON4D3/LuaSnip',
-      'rafamadriz/friendly-snippets',
-    },
   },
 
   -- Fuzzy Finder (files, lsp, etc)
