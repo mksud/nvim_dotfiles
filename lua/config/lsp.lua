@@ -34,26 +34,40 @@ local on_attach = function(_, bufnr)
 end
 
 function M.setup()
-  -- LSP settings
-  local lspconfig_util = vim.lsp.config.util
-
   -- Enable the following language servers
   -- Override the root dir detection and other settings
   local servers = {
-    ['html'] = {},
-    ['pyright'] = {},
-    ['omnisharp'] = {},
-    ['clangd'] = {},
-    ['rust_analyzer'] = {},
-    ['ts_ls'] = {
+    html = {},
+    pyright = {},
+    omnisharp = {},
+    clangd = {},
+    rust_analyzer = {},
+
+    ts_ls = {
       root_dir = function(fname)
-        return lspconfig_util.root_pattern('jsconfig.json', 'tsconfig.json')(fname) or lspconfig_util.root_pattern('package.json', '.git')(fname)
+
+        return vim.fs.root(fname, {
+          'jsconfig.json',
+          'tsconfig.json',
+          'package.json',
+          '.git',
+        })
       end,
     },
-    ['eslint'] = {
+
+    eslint = {
       root_dir = function(fname)
-        return lspconfig_util.root_pattern('.eslintrc', '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc.json')(fname)
-          or lspconfig_util.root_pattern('package.json', '.git')(fname)
+
+        return vim.fs.root(fname, {
+          '.eslintrc',
+          '.eslintrc.js',
+          '.eslintrc.cjs',
+          '.eslintrc.yaml',
+          '.eslintrc.yml',
+          '.eslintrc.json',
+          'package.json',
+          '.git',
+        })
       end,
     },
   }
