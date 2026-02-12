@@ -18,6 +18,7 @@ keymap('v', '>', '>gv', default_opts)
 local fzf = require 'fzf-lua'
 
 vim.keymap.set('n', '<leader><space>', fzf.buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>ss', fzf.global, { desc = '[S]earch global' })
 vim.keymap.set('n', '<leader>sf', function()
   fzf.files { winopts = { preview = { hidden = 'hidden' } } }
 end, { desc = '[S]earch [F]iles' })
@@ -26,8 +27,8 @@ vim.keymap.set('n', '<leader>/', function()
   fzf.blines { winopts = { preview = { hidden = 'hidden' } } }
 end, { desc = '[/] Fuzzily search in current buffer' })
 
-vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', fzf.grep_cword, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('v', '<leader>sw', fzf.grep_visual, { desc = '[S]earch [V]isual' })
 vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>sq', fzf.quickfix, { desc = '[S]earch [Q]uickfix' })
