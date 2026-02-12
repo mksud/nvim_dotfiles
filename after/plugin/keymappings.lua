@@ -14,22 +14,23 @@ keymap('v', '<', '<gv', default_opts)
 keymap('v', '>', '>gv', default_opts)
 
 -- plugin mappings
--- telescope
+-- fuzzy finder
+local fzf = require 'fzf-lua'
 
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader><space>', fzf.buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>sf', function()
-  require('telescope.builtin').find_files { previewer = false, path_display = { 'truncate' } }
+  fzf.files { winopts = { preview = { hidden = 'hidden' } } }
 end, { desc = '[S]earch [F]iles' })
 
 vim.keymap.set('n', '<leader>/', function()
-  require('telescope.builtin').current_buffer_fuzzy_find { previewer = false }
+  fzf.blines { winopts = { preview = { hidden = 'hidden' } } }
 end, { desc = '[/] Fuzzily search in current buffer' })
 
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
-vim.keymap.set('n', '<leader>sq', require('telescope.builtin').quickfix, { desc = '[S]earch [Q]uickfix' })
+vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sw', fzf.grep_cword, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>sq', fzf.quickfix, { desc = '[S]earch [Q]uickfix' })
 
 vim.keymap.set({'n', 'v'}, '<leader>cc', function()
   require('codecompanion').toggle()

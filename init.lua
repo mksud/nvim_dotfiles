@@ -83,31 +83,25 @@ require('lazy').setup({
 
   -- Fuzzy Finder (files, lsp, etc)
   {
-    'nvim-telescope/telescope.nvim',
-    version = '*',
-    dependencies = {
-      { 'nvim-lua/plenary.nvim', branch = 'master' },
-      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-
-      -- Only load if `make` is available. Make sure you have the system
-      -- requirements installed.
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        -- NOTE: If you are having trouble with this installation,
-        --       refer to the README for telescope-fzf-native for more instructions.
-        build = 'make',
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
-      },
-    },
+    'ibhagwan/fzf-lua',
     config = function()
-      require('telescope').setup {
-        defaults = {
-          path_display = { 'smart' },
+      require('fzf-lua').setup {
+        fzf_colors = true,
+        hls = {
+          backdrop = 'Normal',
+          header_bind = 'Identifier',
+          buf_nr = 'Identifier',
+          tab_marker = 'Identifier',
+          header_text = 'Statement',
+          buf_flag_cur = 'Statement',
+          path_colnr = 'Number',
+          buf_flag_alt = 'Type',
+          path_linenr = 'LineNr',
+          tab_title = 'Title',
+          live_prompt = 'Special',
+          live_sym = 'Special',
         },
       }
-      pcall(require('telescope').load_extension, 'fzf')
     end,
   },
 
@@ -127,3 +121,4 @@ require('lazy').setup({
   --For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   --{ import = 'custom.plugins' },
 }, {})
+

@@ -2,8 +2,8 @@
 Neovim configuration
 
 Prerequisites:
-- `make` command for treesitter and telescope native
-- `ripgrep` and `fd` for telescope search
+- `make` command for treesitter
+- `ripgrep` and `fd` for fuzzy search
 - `codex` and `codex-acp`
 
 Plugin hosts:
