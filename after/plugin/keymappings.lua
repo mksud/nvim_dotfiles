@@ -13,6 +13,9 @@ keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", expr_opts)
 keymap('v', '<', '<gv', default_opts)
 keymap('v', '>', '>gv', default_opts)
 
+-- Yank to system clipboard
+keymap({ 'n', 'v' }, '<leader>y', '"+y', default_opts)
+
 -- plugin mappings
 -- telescope
 
