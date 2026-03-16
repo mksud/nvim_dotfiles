@@ -107,10 +107,13 @@ local function copy_visual_context(include_content)
     return
   end
 
-  local lines = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = mode })
-  local payload = table.concat(vim.list_extend({ location, '' }, lines), '\n')
+  local saved_register = vim.fn.getreg('z')
+  local saved_register_type = vim.fn.getregtype('z')
+  vim.cmd.normal({ args = { '"zy' }, bang = true })
+  local selection_text = vim.fn.getreg('z')
+  vim.fn.setreg('z', saved_register, saved_register_type)
+  local payload = table.concat({ location, '', selection_text }, '\n')
   copy_to_system_clipboard(payload)
-  exit_visual_mode()
 end
 
 local function copy_current_line_context()
