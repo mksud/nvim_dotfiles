@@ -88,10 +88,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('<leader>wl', function()
       vim.print(vim.lsp.buf.list_workspace_folders())
     end, 'Workspace list folders')
-
-    vim.api.nvim_buf_create_user_command(event.buf, 'Format', function()
-      vim.lsp.buf.format()
-    end, { desc = 'Format current buffer with LSP' })
   end,
 })
 
