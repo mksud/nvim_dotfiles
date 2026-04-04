@@ -1,128 +1,165 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Install package manager
---    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  }
+vim.o.background = 'light'
+vim.o.number = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.wildignorecase = true
+vim.opt.wildoptions:append 'fuzzy'
+vim.opt.wildmode:prepend { 'noselect:lastused' }
+vim.o.updatetime = 250
+vim.o.signcolumn = 'yes'
+vim.o.scrolloff = 5
+vim.o.smartindent = true
+vim.o.breakindent = true
+vim.o.expandtab = true
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.clipboard = 'unnamedplus'
+vim.o.completeopt = 'fuzzy,menu,menuone,noselect,popup'
+vim.o.termguicolors = true
+vim.o.grepprg = 'rg --vimgrep --smart-case'
+vim.opt.grepformat:append '%f'
+vim.opt.errorformat:append '%f'
+-- require('vim._core.ui2').enable({})
+
+vim.pack.add {
+  'https://github.com/tpope/vim-fugitive',
+  'https://github.com/tpope/vim-surround',
+  'https://github.com/tpope/vim-sleuth',
+  'https://github.com/echasnovski/mini.pairs',
+  'https://github.com/mason-org/mason.nvim',
+  'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
+  'https://github.com/github/copilot.vim',
+  'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/nvim-treesitter/nvim-treesitter',
+  'https://github.com/mksud/vim-log-syntax',
+}
+
+require('mini.pairs').setup()
+
+local servers = {
+  clangd = {},
+  eslint = {},
+  html = {},
+  omnisharp = {},
+  pyright = {},
+  rust_analyzer = {},
+  ts_ls = {},
+}
+
+local mason_packages = {
+  'clangd',
+  'eslint-lsp',
+  'html-lsp',
+  'omnisharp',
+  'pyright',
+  'rust-analyzer',
+  'typescript-language-server',
+  'tree-sitter-cli',
+}
+
+require('mason').setup()
+require('mason-tool-installer').setup { ensure_installed = mason_packages }
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('dotfiles-lsp-attach', { clear = true }),
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client and client:supports_method 'textDocument/completion' then
+      vim.lsp.completion.enable(true, client.id, event.buf, {
+        autotrigger = true,
+      })
+
+      vim.keymap.set('i', '<C-j>', function()
+        vim.lsp.completion.get()
+      end, { buffer = event.buf, silent = true, desc = 'LSP completion' })
+    end
+
+    local map = function(keys, func, desc)
+      vim.keymap.set('n', keys, func, { buffer = event.buf, silent = true, desc = desc })
+    end
+
+    map('gD', vim.lsp.buf.declaration, 'LSP declaration')
+    map('<leader>ws', vim.lsp.buf.workspace_symbol, 'Workspace symbols')
+    map('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace add folder')
+    map('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace remove folder')
+    map('<leader>wl', function()
+      vim.print(vim.lsp.buf.list_workspace_folders())
+    end, 'Workspace list folders')
+
+    vim.api.nvim_buf_create_user_command(event.buf, 'Format', function()
+      vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
+  end,
+})
+
+for name, config in pairs(servers) do
+  vim.lsp.config(name, config)
+  vim.lsp.enable(name)
 end
-vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({
+local function ensure_treesitter_parsers()
+  local ensure_installed = {
+    'bash',
+    'c',
+    'c_sharp',
+    'cpp',
+    'css',
+    'diff',
+    'html',
+    'java',
+    'javascript',
+    'json',
+    'lua',
+    'luadoc',
+    'make',
+    'markdown',
+    'markdown_inline',
+    'python',
+    'query',
+    'rust',
+    'typescript',
+    'vim',
+    'vimdoc',
+    'yaml',
+  }
 
-  'tpope/vim-fugitive', -- Git helper
-  'tpope/vim-surround', -- nice keymaps to surround
-  -- 'tpope/vim-commentary', -- comment helper
-  'tpope/vim-sleuth', -- autodetect tab setting and indentatio
-  -- 'github/copilot.vim', -- copilot
-  'mksud/vim-log-syntax', --log file highlighting
-  {
-    'olimorris/codecompanion.nvim',
-    version = "^19.0.0",
-    opts = {
-      adapters = {
-        acp = {
-          codex = function()
-            return require("codecompanion.adapters").extend("codex", {
-              defaults = {
-                auth_method = "chatgpt",
-              },
-            })
-          end,
-        },
-      },
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'github/copilot.vim',
-      'nvim-treesitter/nvim-treesitter',
-    },
-  },
+  local installed = require('nvim-treesitter').get_installed 'parsers'
+  local missing = vim
+    .iter(ensure_installed)
+    :filter(function(parser)
+      return not vim.tbl_contains(installed, parser)
+    end)
+    :totable()
 
-  { 'echasnovski/mini.statusline', version = false, opts = {} },
-  { 'echasnovski/mini.pairs', version = false, opts = {} },
+  if #missing > 0 then
+    require('nvim-treesitter').install(missing)
+  end
+end
 
-  { -- Code completion
-    'saghen/blink.cmp',
-    version = '1.*',
-    config = function()
-      require('config.blink').setup()
-    end,
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-    },
-  },
+if vim.fn.executable 'tree-sitter' == 1 then
+  ensure_treesitter_parsers()
+end
 
-  { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    local language = vim.treesitter.language.get_lang(args.match)
+    if not language then
+      return
+    end
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
-    },
-    config = function()
-      require('config.lsp')
-    end,
-  },
+    local installed = require('nvim-treesitter').get_installed 'parsers'
+    if not vim.tbl_contains(installed, language) then
+      return
+    end
 
-  -- Fuzzy Finder (files, lsp, etc)
-  {
-    'nvim-telescope/telescope.nvim',
-    version = '*',
-    dependencies = {
-      { 'nvim-lua/plenary.nvim', branch = 'master' },
-      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-
-      -- Only load if `make` is available. Make sure you have the system
-      -- requirements installed.
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        -- NOTE: If you are having trouble with this installation,
-        --       refer to the README for telescope-fzf-native for more instructions.
-        build = 'make',
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
-      },
-    },
-    config = function()
-      require('telescope').setup {
-        defaults = {
-          path_display = { 'smart' },
-        },
-      }
-      pcall(require('telescope').load_extension, 'fzf')
-    end,
-  },
-
-  { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'JoosepAlviste/nvim-ts-context-commentstring',
-    },
-    config = function()
-      pcall(require('config.treesitter').setup)
-    end,
-    build = ':TSUpdate',
-  },
-
-  --Load custom plugins from `lua/custom/plugins/*.lua`
-  --For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  --{ import = 'custom.plugins' },
-}, {})
+    vim.treesitter.start(args.buf, language)
+    vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    local win = vim.api.nvim_get_current_win()
+    vim.wo[win].foldmethod = 'expr'
+    vim.wo[win].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.wo[win].foldlevel = 4
+  end,
+})
