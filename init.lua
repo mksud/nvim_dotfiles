@@ -77,17 +77,25 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end, { buffer = event.buf, silent = true, desc = 'LSP completion' })
     end
 
-    local map = function(keys, func, desc)
-      vim.keymap.set('n', keys, func, { buffer = event.buf, silent = true, desc = desc })
-    end
-
-    map('gD', vim.lsp.buf.declaration, 'LSP declaration')
-    map('<leader>ws', vim.lsp.buf.workspace_symbol, 'Workspace symbols')
-    map('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace add folder')
-    map('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace remove folder')
-    map('<leader>wl', function()
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = event.buf, silent = true, desc = 'LSP declaration' })
+    vim.keymap.set('n', '<leader>ws', vim.lsp.buf.workspace_symbol, {
+      buffer = event.buf,
+      silent = true,
+      desc = 'Workspace symbols',
+    })
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, {
+      buffer = event.buf,
+      silent = true,
+      desc = 'Workspace add folder',
+    })
+    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, {
+      buffer = event.buf,
+      silent = true,
+      desc = 'Workspace remove folder',
+    })
+    vim.keymap.set('n', '<leader>wl', function()
       vim.print(vim.lsp.buf.list_workspace_folders())
-    end, 'Workspace list folders')
+    end, { buffer = event.buf, silent = true, desc = 'Workspace list folders' })
   end,
 })
 
