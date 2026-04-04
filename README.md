@@ -1,14 +1,12 @@
 # nvim_dotfiles
-Neovim configuration
 
-Prerequisites:
-- `make` command for treesitter and telescope native
-- `ripgrep` and `fd` for telescope search
-- `codex` and `codex-acp`
+Neovim 0.12 configuration built around a single [`init.lua`](init.lua), with small mapping helpers in [`after/plugin/keymappings.lua`](after/plugin/keymappings.lua) and [`after/ftplugin`](after/ftplugin).
 
-Plugin hosts:
-- `python -m pip install --user pynvim`
-- `yarn global add neovim`
+## Requirements
 
-Other tools that help:
-- `win32yank` for windows
+- Neovim 0.12
+- `git` for `vim.pack`
+- `rg` (`ripgrep`) for:
+  - `grepprg`
+  - `:Find` file completion
+- `make` is useful if `tree-sitter-cli` needs to build anything locally
