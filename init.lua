@@ -107,7 +107,6 @@ end
 local function ensure_treesitter_parsers()
   local ensure_installed = {
     'bash',
-    'c',
     'c_sharp',
     'cpp',
     'css',
@@ -116,17 +115,12 @@ local function ensure_treesitter_parsers()
     'java',
     'javascript',
     'json',
-    'lua',
     'luadoc',
     'make',
-    'markdown',
     'markdown_inline',
     'python',
-    'query',
     'rust',
     'typescript',
-    'vim',
-    'vimdoc',
     'yaml',
   }
 
@@ -154,13 +148,11 @@ vim.api.nvim_create_autocmd('FileType', {
       return
     end
 
-    local installed = require('nvim-treesitter').get_installed 'parsers'
-    if not vim.tbl_contains(installed, language) then
+    if not vim.treesitter.language.add(language) then
       return
     end
 
     vim.treesitter.start(args.buf, language)
-    vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     local win = vim.api.nvim_get_current_win()
     vim.wo[win].foldmethod = 'expr'
     vim.wo[win].foldexpr = 'v:lua.vim.treesitter.foldexpr()'

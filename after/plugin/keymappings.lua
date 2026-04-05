@@ -30,6 +30,11 @@ local function prompt_command_in_scratch(default)
   end)
 end
 
+local function start_cmdline_completion(prefix)
+  vim.api.nvim_feedkeys(prefix, 'n', false)
+  vim.schedule(vim.fn.wildtrigger)
+end
+
 local find_files_cache
 
 local function rg_find_files(arglead)
@@ -106,29 +111,42 @@ local function copy_visual_context(include_content)
   exit_visual_mode()
 end
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-vim.keymap.set('v', '<', '<gv', { silent = true })
-vim.keymap.set('v', '>', '>gv', { silent = true })
+local function copy_current_line_context()
+  local location = string.format('%s:%d', vim.fn.expand '%:.', vim.fn.line '.')
+  copy_to_system_clipboard(location)
+end
+
+local function copy_full_file_path()
+  copy_to_system_clipboard(vim.fn.expand '%:p')
+end
+
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>')
+vim.keymap.set('n', 'k', function()
+  return vim.v.count == 0 and 'gk' or 'k'
+end, { expr = true })
+vim.keymap.set('n', 'j', function()
+  return vim.v.count == 0 and 'gj' or 'j'
+end, { expr = true })
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', '<leader><space>', function()
-  vim.api.nvim_feedkeys(':b ', 'n', false)
-  vim.schedule(vim.fn.wildtrigger)
+  start_cmdline_completion ':b '
 end, { silent = true, desc = 'Switch buffers' })
-vim.keymap.set('n', '<leader>c', function()
-  prompt_command_in_scratch()
-end, { desc = 'Run command in scratch split' })
-vim.keymap.set('n', '<leader>sw', ':silent grep! -s <C-r><C-w><Bar>copen<CR>', { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>c', prompt_command_in_scratch, { desc = 'Run command in scratch split' })
+vim.keymap.set('n', '<leader>sw', function()
+  vim.cmd(string.format('silent grep! -s %s', vim.fn.expand '<cword>'))
+  vim.cmd.copen()
+end, { silent = true, desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sf', function()
-  vim.api.nvim_feedkeys(':Find ', 'n', false)
-  vim.schedule(vim.fn.wildtrigger)
+  start_cmdline_completion ':Find '
 end, { silent = true, desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>ss', open_scratch_split, { desc = 'Open empty scratch split' })
 
 vim.keymap.set('v', '<leader>ay', function()
   copy_visual_context(true)
 end, { desc = '[A]I [Y]ank selection with context' })
-
+vim.keymap.set('n', '<leader>al', copy_current_line_context, { desc = '[A]I copy [L]ocation' })
 vim.keymap.set('v', '<leader>al', function()
   copy_visual_context(false)
 end, { desc = '[A]I copy [L]ocation' })
+vim.keymap.set('n', '<leader>ap', copy_full_file_path, { desc = '[A]I copy full [P]ath' })
