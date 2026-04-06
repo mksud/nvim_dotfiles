@@ -10,3 +10,4 @@ Neovim 0.12 configuration built around a single [`init.lua`](init.lua), with sma
   - `grepprg`
   - `:Find` file completion
 - `make` is useful if `tree-sitter-cli` needs to build anything locally
+- On windows treesitter parsers require msvc build tools
