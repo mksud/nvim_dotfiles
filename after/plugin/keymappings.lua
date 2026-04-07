@@ -35,10 +35,6 @@ local function start_cmdline_completion(prefix)
   vim.schedule(vim.fn.wildtrigger)
 end
 
-local function start_cmdline(prefix)
-  vim.api.nvim_feedkeys(prefix, 'n', false)
-end
-
 local find_files_cache
 
 local function rg_find_files(arglead)
@@ -124,11 +120,26 @@ local function copy_full_file_path()
   copy_to_system_clipboard(vim.fn.expand '%:p')
 end
 
-local function set_search_term_to_cword()
+local function prime_current_word_search()
   local cword = vim.fn.expand '<cword>'
+  if cword == '' then
+    return nil
+  end
+
   vim.fn.setreg('/', cword)
   vim.o.hlsearch = true
   vim.fn.search(cword, 'cw')
+  return cword
+end
+
+local function grep_current_word(flag)
+  local cword = prime_current_word_search()
+  if not cword then
+    return
+  end
+
+  vim.cmd(string.format('silent grep! %s %s', flag, cword))
+  vim.cmd.copen()
 end
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>')
@@ -145,14 +156,10 @@ vim.keymap.set('n', '<leader><space>', function()
 end, { silent = true, desc = 'Switch buffers' })
 vim.keymap.set('n', '<leader>c', prompt_command_in_scratch, { desc = 'Run command in scratch split' })
 vim.keymap.set('n', '<leader>sw', function()
-  set_search_term_to_cword()
-  vim.cmd(string.format('silent grep! -s %s', vim.fn.expand '<cword>'))
-  vim.cmd.copen()
+  grep_current_word '-s'
 end, { silent = true, desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sl', function()
-  set_search_term_to_cword()
-  vim.cmd(string.format('silent grep! -l %s', vim.fn.expand '<cword>'))
-  vim.cmd.copen()
+  grep_current_word '-l'
 end, { silent = true, desc = '[S]earch with rg -[L]' })
 vim.keymap.set('n', '<leader>sf', function()
   start_cmdline_completion ':Find '
