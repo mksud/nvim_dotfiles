@@ -159,8 +159,8 @@ vim.keymap.set('n', '<leader>sw', function()
   grep_current_word '-s'
 end, { silent = true, desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sl', function()
-  grep_current_word '-l'
-end, { silent = true, desc = '[S]earch with rg -[L]' })
+  grep_current_word '-m 1'
+end, { silent = true, desc = '[S]earch first match per fi[L]e' })
 vim.keymap.set('n', '<leader>sf', function()
   start_cmdline_completion ':Find '
 end, { silent = true, desc = '[S]earch [F]iles' })
