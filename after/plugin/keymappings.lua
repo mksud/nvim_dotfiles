@@ -4,7 +4,7 @@ local function copy_to_system_clipboard(text)
 end
 
 local function exit_visual_mode()
-  local esc = vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
+  local esc = vim.keycode '<Esc>'
   vim.api.nvim_feedkeys(esc, 'nx', false)
 end
 
@@ -111,9 +111,23 @@ local function copy_visual_context(include_content)
   exit_visual_mode()
 end
 
-local function copy_current_line_context()
+local function copy_current_line_with_context()
   local location = string.format('%s:%d', vim.fn.expand '%:.', vim.fn.line '.')
-  copy_to_system_clipboard(location)
+  local line = vim.api.nvim_get_current_line()
+  local payload = table.concat({ location, '', line }, '\n')
+  copy_to_system_clipboard(payload)
+end
+
+local function copy_current_word_with_line_context()
+  local cword = vim.fn.expand '<cword>'
+  if cword == '' then
+    return
+  end
+
+  local location = string.format('%s:%d', vim.fn.expand '%:.', vim.fn.line '.')
+  local line = vim.api.nvim_get_current_line()
+  local payload = table.concat({ location, '', line, '', cword }, '\n')
+  copy_to_system_clipboard(payload)
 end
 
 local function copy_full_file_path()
@@ -166,11 +180,9 @@ vim.keymap.set('n', '<leader>sf', function()
 end, { silent = true, desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>ss', open_scratch_split, { desc = 'Open empty scratch split' })
 
+vim.keymap.set('n', '<leader>ay', copy_current_line_with_context, { desc = '[A]I [Y]ank current line with context' })
 vim.keymap.set('v', '<leader>ay', function()
   copy_visual_context(true)
 end, { desc = '[A]I [Y]ank selection with context' })
-vim.keymap.set('n', '<leader>al', copy_current_line_context, { desc = '[A]I copy [L]ocation' })
-vim.keymap.set('v', '<leader>al', function()
-  copy_visual_context(false)
-end, { desc = '[A]I copy [L]ocation' })
+vim.keymap.set('n', '<leader>aw', copy_current_word_with_line_context, { desc = '[A]I copy current [W]ord with line context' })
 vim.keymap.set('n', '<leader>ap', copy_full_file_path, { desc = '[A]I copy full [P]ath' })
