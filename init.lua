@@ -77,10 +77,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end, { buffer = event.buf, silent = true, desc = 'LSP completion' })
     end
 
-    if client and client:supports_method 'textDocument/codeLens' then
-      vim.lsp.codelens.enable(true, {client_id = client.id})
-    end
-
+    -- if client and client:supports_method 'textDocument/codeLens' then
+    --   vim.lsp.codelens.enable(true, {client_id = client.id})
+    -- end
+    --
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = event.buf, silent = true, desc = 'LSP declaration' })
     vim.keymap.set('n', '<leader>grs', vim.lsp.buf.workspace_symbol, {
       buffer = event.buf,
