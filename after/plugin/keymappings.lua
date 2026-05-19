@@ -178,7 +178,8 @@ end, { silent = true, desc = '[S]earch first match per fi[L]e' })
 vim.keymap.set('n', '<leader>sf', function()
   start_cmdline_completion ':Find '
 end, { silent = true, desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>e', open_scratch_split, { desc = 'Open empty scratch split' })
+vim.keymap.set('n', '<leader>n', open_scratch_split, { desc = 'Open empty scratch split' })
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 
 vim.keymap.set('n', '<leader>ay', copy_current_line_with_context, { desc = '[A]I [Y]ank current line with context' })
 vim.keymap.set('v', '<leader>ay', function()
